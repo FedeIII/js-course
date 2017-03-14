@@ -1,28 +1,23 @@
 # js-course
 
-GENERALIDADES
+BASICS
+    engine
+    coercion
 
-    interpretado, pero con operaciones muy parecidas al compilado
-    no tipado, coercion, evitarla
-    event loop
-    nota sobre ES6
-    scope
-        explicacion
-        ejemplo practico
-        multiples scopes para una misma funcion
-        revealing module pattern
-        currying
+SCOPE
+    introduction
+    revealing module pattern
+    parameters
+    functional programming
 
-DELEGACION
-
-    contexto
+DELEGATION
+    context
     prototype
 
-ASINCRONIA
-
-    ejemplo event loop
+ASYNCHRONY
+    event loop
     callbacks
-    promesas
+    promises
 
 DOM
 
