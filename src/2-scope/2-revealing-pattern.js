@@ -1,31 +1,63 @@
-function moduleFactory (deps, options) {
+/****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
+With revealing module pattern you use the scope to have the equivalent of
+private and public properties and methods:
+****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
-    var something = options.a + options.b;
+function counterModule (start) {
+    var count = start;
 
-    function doSomething () {
-        return deps.do(something);
+    function add (num) {
+        count += num;
     }
 
     return {
-        isActive: true,
-        returnSomething: function () {
-            return doSomething();
+        tick: function () {
+            add(1);
+        },
+
+        show: function () {
+            return count;
+        },
+
+        increment: function (amount) {
+            add(amount);
         }
     };
 }
 
-var deps = {
-    do: function (foo) {
-        return foo;
-    }
-};
+/****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
+count is a "private property", a local variable scoped inside counter module
+add is a "private method", a local function only avalaible inside the module
+tick, show and increment are "public methods" returned by the module in an
+object so they can be accessed from outside
+****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
-var options = {
-    a: 1,
-    b: 2
-};
+var counter = counterModule(0);
 
-var myModule = moduleFactory(deps, options);
+counter.show(); // 0
 
-myModule.isActive;
-myModule.returnSomething();
+counter.tick();
+counter.tick();
+counter.show(); // 2
+
+counter.increment(5);
+counter.show(); // 7
+
+/****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
+Every time you call counterModule you return not only an object with the
+public methods but also a particular scope for those methods to work with.
+If you have multiple objects created with this module, each of them will have
+its own particular and independent scope to alter
+****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
+
+var counter1 = counterModule(0);
+var counter2 = counterModule(0);
+
+counter1.tick();
+
+counter2.tick();
+counter2.tick();
+counter2.tick();
+
+counter1.show();    // 1
+counter2.show();    // 3
