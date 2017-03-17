@@ -19,7 +19,6 @@ function createUser (name) {
     var id = Math.random();
     console.log('I am ' + name + ', with user id ' + id);
 
- // vvvvvv  Now we return an on-the-go created object
     return {
         name: name,
         id: id
@@ -37,7 +36,6 @@ Instead of an object we can return a function that identifies the user
 function createUser (name) {
     var id = Math.random();
 
-        // vvvvvvvv  Replaced the returned object by a function
     return function identify () {
         console.log('I am ' + name + ', with user id ' + id);
     };
@@ -58,7 +56,6 @@ function createUser (name) {
         console.log('I am ' + name + ', with user id ' + id);
     };
 
-          // vvvvvvv  We add attributes to the returned function
     identify.id = id;
     identify.name = name;
 
@@ -78,7 +75,6 @@ admit a parameter
 function createUser (name) {
     var id = Math.random();
 
-                    // vvvvvv  The returned function now admits a parameter
     function identify (salute) {
         console.log(`I am ${name}, with user id ${id}. ${salute}`);
     };

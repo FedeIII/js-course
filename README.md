@@ -13,6 +13,8 @@ SCOPE
 DELEGATION
     context
     prototype
+    inheritance
+    classes
 
 ASYNCHRONY
     event loop
