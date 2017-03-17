@@ -9,14 +9,14 @@ function printArgs (a, b, c) {
 printArgs(1, 2, 3); // 1 2 3
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-If the arguments are passed in an array
+If the arguments are passed in an array...
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 var arr = [1, 2, 3];
 printArgs(arr);     // [1, 2, 3] undefined undefined
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-We could destructure the array manually, with some imperative code
+We could destructure the array manually with some imperative code
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 printArgs(arr[0], arr[1], arr[2]);  // 1 2 3
@@ -42,7 +42,7 @@ function printArgs (...args) {
 printArgs(1, 2, 3, 4); // [1, 2, 3, 4]
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-Combining both gather and spread operators can replicate the original
+Combining both gather and spread operators we can replicate the original
 function but with any number of parameters
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
