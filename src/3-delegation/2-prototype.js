@@ -39,7 +39,7 @@ obj.__proto__;              // {b: 'b foo'}
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
 Because the prototype actually exists outside the created object, it can be
-altered after its creating and still have effect on that object
+altered after its creation and still have effect on that object
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 var obj1 = new foo();
@@ -52,7 +52,8 @@ obj1.b; // 'new b foo'
 obj2.b; // 'new b foo'
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-A more direct way of linking prototypally two objects is with Object.create()
+A more explicit way of linking prototypally two objects without the need of a
+constructor function is with Object.create()
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 var obj = {
