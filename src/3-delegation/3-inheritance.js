@@ -56,7 +56,7 @@ name;       // 'Fry'
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
 If we want to execute the Animal constructor with the correct context, we
-have to pass it somehow with any of the three methods we saw before
+have to pass it somehow using any of the three approaches we saw before
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 function Cat (name) {
@@ -64,38 +64,72 @@ function Cat (name) {
     return instance;
 }
 
+Cat.prototype.speak = function () {
+    console.log('Meow! ' + this.identify());
+};
+
+var fry = new Cat('Fry');
+fry.identify(); // 'This is Fry'
+fry.speak();    // TypeError: fry.speak is not a function
+
+// fry automatically delegates to Animal prototype BUT
+// doesn't delegate to own constructor Cat prototype (misuse of "new" keyword)
+
 function Cat (name) {
     this.super = Animal;
     this.super(name);
 }
 
+Cat.prototype.speak = function () {
+    console.log('Meow! ' + this.identify());
+};
+
+var fry = new Cat('Fry');
+fry.identify(); // TypeError: fry.identify is not a function
+fry.speak();    // TypeError: fry.identify is not a function
+
+// fry delegates correctly to Cat's prototype BUT
+// Cat's prototype is not delegating to Animal prototype
+
 function Cat (name) {
     Animal.call(this, name);
 }
 
+Cat.prototype.speak = function () {
+    console.log('Meow! ' + this.identify());
+};
+
 var fry = new Cat('Fry');
-fry.name;   // 'Fry'
+fry.identify(); // TypeError: fry.identify is not a function
+fry.speak();    // TypeError: fry.identify is not a function
+
+// fry delegates correctly to Cat's prototype BUT
+// Cat's prototype is not delegating to Animal prototype
 
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-To inherit the common props from the prototype we have to link the prototype
-of the child class to the prototype of the parent class
+To "inherit" the props from Animal's prototype we have to link Cat's
+prototype to Animal's prototype (child class delegates on parent class)
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
-fry.identify;   // undefined
+function Cat (name) {
+    Animal.call(this, name);
+}
 
+// prototype chain creation!
 Cat.prototype = Object.create(Animal.prototype);
 
 Cat.prototype.speak = function () {
     console.log('Meow! ' + this.identify());
 };
 
-var cat1 = new Cat('Fry');
-var cat2 = new Cat('Leela');
+var fry = new Cat('Fry');
+fry.identify(); // 'This is Fry'
+fry.speak();    // Meow! This is Fry
 
-cat1.speak();
-cat2.speak();
-
-///////////////////////////////////////////////
+/****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
+This code can be simplified if we stop thinking about inheritance and classes
+and we program directly using delegation
+****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
 var Animal = {
     init: function (name) {
@@ -113,10 +147,33 @@ Cat.speak = function () {
     console.log('Meow! ' + this.identify());
 };
 
-var cat1 = Object.create(Cat);
-cat1.init('Fry');
-var cat2 = Object.create(Cat);
-cat2.init('Leela');
+var cat = Object.create(Cat);
+cat.init('Fry');
 
-cat1.speak();
-cat2.speak();
+cat.speak();    // Meow! This is Fry
+
+/****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
+Instead of create the object and THEN initializing it (through "init") we
+can create and initialize with the same function
+****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
+
+function Animal (name) {
+	return {
+		name: name,
+		identify: function () {
+            return 'This is ' + this.name;
+        }
+	};
+}
+
+function Cat (name) {
+	var cat = Object.create(Animal(name));
+	cat.speak = function () {
+		console.log('Meow! ' + this.identify());
+	};
+    return cat;
+}
+
+var fry = Cat('Fry');
+
+fry.speak();    // Meow! This is Fry
