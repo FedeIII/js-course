@@ -1,5 +1,5 @@
 /****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******
-With ES6 new keywords are introduced to create "classes" such as class,
+With ES6, new keywords are introduced to create "classes" such as class,
 extends, super and a few others
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
