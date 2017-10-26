@@ -49,10 +49,11 @@ We can store the correct value for 'i' in the scope of the callback sent to
 the event loop
 ****** ****** ****** ****** ****** ****** ****** ****** ****** ****** ******/
 
-function delayNumber (i) {
+function delayNumber (j) {
+    // j is actually a scoped value for i
     setTimeout(function () {
-        console.log(i);
-    }, i * 1000);
+        console.log(j);
+    }, j * 1000);
 }
 
 for (var i = 0; i <= 5; i++) {
