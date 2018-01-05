@@ -1,0 +1,13 @@
+
+ShyGuy      -> talk()   ->   PROMISE    -->
+            -> giveNumber(GIRLS_NUMBER) ->
+
+Girl        ->
+
+Bathroom    -> makeQueue()  --> 6 x STALLS -> lookInside(STALLS[4])   -> DiscoGuy ->  giveSugar(SUGAR) --> MONEY
+            -> watchPeopleLeaving() --> hastyGuy    ->  talk()  --> (in timeout) FINAL_PROMISE_1
+                                                                x-> (out timeout) ERROR
+
+Bartender   ->  giveMoney(MONEY) --> TICKET
+            ->  hearNextDrink() --> NUMBER == TICKET --> giveTicket(TICKET)  -> BEER
+                                --> NUMBER != TICKET --> giveTicket(TICKET)  -> ERROR
